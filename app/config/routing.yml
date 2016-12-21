@@ -1,0 +1,10 @@
+stakeholders_client:
+    resource: "@StakeholdersClientBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+stakeholders_api:
+    resource: "@StakeholdersApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

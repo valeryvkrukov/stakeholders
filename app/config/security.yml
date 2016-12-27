@@ -1,24 +1,60 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/security.html
 security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+        
+    role_hierarchy:
+        ROLE_AGENCY: ROLE_USER
+        ROLE_INFLUENCER: ROLE_USER
+        ROLE_CUSTOMER: ROLE_USER
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_CUSTOMER, ROLE_INFLUENCER, ROLE_AGENCY, ROLE_ALLOWED_TO_SWITCH]
 
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        fos_userbundle:
+            id: fos_user.user_provider.username
+        stakeholders_oauth:
+            id: stakeholders_client.oauth_user_provider
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+            
+        oauth_token:
+            pattern: ^/oauth/v2/token
+            security: false
+            
+        #oauth_authorize:
+            #pattern: ^/oauth/v2/auth
+            #form_login:
+            #    provider: fos_userbundle
+            #    check_path: /oauth/v2/auth #/oauth/v2/auth_login_check
+            #    login_path: /oauth/v2/auth #login
+            #guard:
+            #   authenticators:
+            #       - stakeholders_client.oauth_authenticator
+            #anonymous: true
+            
+        api:
+            pattern: ^/v1
+            fos_oauth: true
+            stateless: true
+            anonymous: false
 
+        client:
+            pattern: ^/app
+            anonymous: false
+            guard:
+               authenticators:
+                   - stakeholders_client.oauth_authenticator
+            logout: true
         main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            pattern: ^/block
+            security: false
+            
+    access_control:
+        - { path: ^/v1, roles: [IS_AUTHENTICATED_FULLY] }
+        - { path: ^/oauth/v2/auth$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+       

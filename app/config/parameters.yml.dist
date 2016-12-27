@@ -17,3 +17,8 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    
+    api_url: http://stakeholders.dev/
+    api_client_id: something
+    api_client_secret: something
+    

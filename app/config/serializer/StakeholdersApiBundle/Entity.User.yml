@@ -1,0 +1,11 @@
+Stakeholders\ApiBundle\Entity\User:
+    exclusion_policy: ALL
+    properties:
+        firstName:
+            expose: true
+        lastName:
+            expose: true
+        brief:
+            expose: true
+        isApproved:
+            expose: true

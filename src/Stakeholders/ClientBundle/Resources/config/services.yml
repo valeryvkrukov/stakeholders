@@ -1,4 +1,8 @@
 services:
-#    stakeholders_client.example:
-#        class: Stakeholders\ClientBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    stakeholders_client.oauth_authenticator:
+        class: Stakeholders\ClientBundle\Security\OAuthAuthenticator
+        arguments: ["@service_container"]
+        
+    stakeholders_client.oauth_user_provider:
+        class: Stakeholders\ClientBundle\Security\User\OAuthUserProvider
+        arguments: ["@service_container"]

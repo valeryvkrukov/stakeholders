@@ -25,6 +25,8 @@ class ClientCreateCommand extends ContainerAwareCommand
 		$client->setRedirectUris($input->getOption('redirect-uri'));
 		$client->setAllowedGrantTypes($input->getOption('grant-type'));
 		$clientManager->updateClient($client);
-		$output->writeln(sprintf('Added a new client with  public id <info>%s</info>.', $client->getPublicId()));
+		$output->writeln('<info>Added a new client:</info>');
+		$output->writeln(sprintf('Public ID: <comment>%s</comment>', $client->getPublicId()));
+		$output->writeln(sprintf('Secret: <comment>%s</comment>', $client->getSecret()));
 	}
 }

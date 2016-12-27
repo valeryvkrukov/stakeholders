@@ -45,7 +45,7 @@ class User extends BaseUser
 	 * @ORM\Column(name="is_approved", type="boolean", nullable=false)
 	 * @JMS\Expose()
 	 */
-	protected $isApproved;
+	protected $isApproved = false;
 
 	/**
 	 * Get id

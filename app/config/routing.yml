@@ -2,9 +2,34 @@ stakeholders_client:
     resource: "@StakeholdersClientBundle/Controller/"
     type:     annotation
     prefix:   /
-
+    
 stakeholders_api:
     resource: "@StakeholdersApiBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /v1
 
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix: /api/doc
+ 
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+  
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+    options:
+        expose: true
+    
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+    
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /oauth/v2
+    
+user:
+    type: rest
+    resource: Stakeholders\ApiBundle\Controller\UserController
+    prefix: /v1
+    options:
+        expose: true

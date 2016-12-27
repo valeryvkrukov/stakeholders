@@ -1,0 +1,88 @@
+<div class="container-fluid container-fixed-lg" ng-controller="UserProfileCtrl">
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">User</a>
+		</li>
+		<li>
+			<a href="#" class="active">Profile</a>
+		</li>
+	</ul>
+	<h3 class="page-title">Profile</h3>
+	<div class="row">
+		<div class="col-md-8 sm-no-padding">
+			<div class="panel panel-transparent">
+				<ul class="nav nav-tabs nav-tabs-linetriangle" pg-tab-dropdownfx>
+					<li class="active">
+						<a data-toggle="tab" pg-tab href="#profile-overview"><span>Overview</span></a>
+					</li>
+					<li>
+						<a data-toggle="tab" pg-tab href="#profile-edit"><span>Edit</span></a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="profile-overview">
+						<div class="row">
+							<div class="col-md-12">
+								<h3>Profile overview</h3>
+								<p>
+									<strong>Username: </strong> <span class="semi-bold">{{ '{{ username }}' }}</span>
+								</p>
+								<p>
+									<strong>Email: </strong> <span class="semi-bold">{{ '{{ email }}' }}</span>
+								</p>
+								<p>
+									<strong>Full name: </strong> 
+									<span class="semi-bold">
+										<i ng-if="fullname == 'not set'">[{{ '{{ fullname }}' }}]</i>
+										<span ng-if="fullname != 'not set'">{{ '{{ fullname }}' }}</span>
+									</span>
+								</p>
+								<p>
+									<strong>Access level: </strong> <span class="semi-bold">{{ '{{ getAccessLevel() }}' }}</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" id="profile-edit">	
+						<div class="row">
+							<div class="col-md-12">
+								<h3>Edit profile</h3>
+								<form role="form">
+									<div class="row">
+										<div class="col-md-6">
+        									<div class="form-group form-group-default">
+        										<label for="username">Username</label>
+        										<input type="text" class="form-control" id="username" ng-model="user.username" placeholder="{{ '{{ username }}' }}" required>
+        									</div>
+        								</div>
+        								<div class="col-md-6">
+        									<div class="form-group form-group-default">
+        										<label for="email">Email</label>
+        										<input type="email" class="form-control" id="email" ng-model="user.email" placeholder="{{ '{{ email }}' }}" required>
+        									</div>
+        								</div>
+        							</div>
+        							<div class="row">
+										<div class="col-md-6">
+        									<div class="form-group form-group-default">
+        										<label for="firstName">First Name</label>
+        										<input type="text" class="form-control" id="firstName" ng-model="user.firstName" placeholder="{{ '{{ firstName }}' }}">
+        									</div>
+        								</div>
+        								<div class="col-md-6">
+        									<div class="form-group form-group-default">
+        										<label for="lastName">Last Name</label>
+        										<input type="text" class="form-control" id="lastName" ng-model="user.lastName" placeholder="{{ '{{ lastName }}' }}">
+        									</div>
+        								</div>
+        							</div>
+        							<button class="btn btn-primary">Update</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

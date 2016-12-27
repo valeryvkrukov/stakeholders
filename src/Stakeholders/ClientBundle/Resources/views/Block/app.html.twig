@@ -1,0 +1,12 @@
+<div ng-include src=" '{{ path('sh_block_sidebar') }}' " include-replace></div>
+
+<div class="page-container">
+	<div ng-include=" '{{ path('sh_block_header') }}' "></div>
+	<div ng-include=" '{{ path('sh_block_mobile_controls') }}' "></div>
+	<div class="page-content-wrapper">
+		<div class="content">
+			<div class="full-height full-width" ui-view>
+		</div>
+		<div ng-include=" '{{ path('sh_block_footer') }}' ">
+	</div>
+</div>

@@ -1,0 +1,56 @@
+<div class="container-fluid container-fixed-lg" ng-controller="InfluencerCampaignsCtrl">
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">Campaigns</a>
+		</li>
+		<li>
+			<a href="#" class="active">List</a>
+		</li>
+	</ul>
+	<h3 class="page-title">Campaigns</h3>
+	<div class="row">
+		<div class="col-sm-12 col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>
+						<a href="" class="btn" ng-class="{'btn-primary': (filter == ''), 'btn-default': (filter != '')}" ng-click="filterByStatus('all')">All</a>
+						<a href="" class="btn" ng-class="{'btn-primary': (filter == 'new'), 'btn-default': (filter != 'new')}" ng-click="filterByStatus('new')">New</a>
+						<a href="" class="btn" ng-class="{'btn-primary': (filter == 'active'), 'btn-default': (filter != 'active')}" ng-click="filterByStatus('active')">Active</a>
+						<a href="" class="btn" ng-class="{'btn-primary': (filter == 'review'), 'btn-default': (filter != 'review')}" ng-click="filterByStatus('review')">Review</a>
+						<a href="" class="btn" ng-class="{'btn-primary': (filter == 'completed'), 'btn-default': (filter != 'completed')}" ng-click="filterByStatus('completed')">Completed</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12">
+			<div class="panel panel-transparent">
+				<div class="panel-body">
+        			<div class="row" ng-repeat="campaign in campaigns|filter: {status: filter}">
+        				<div class="panel panel-default">
+        					<div class="panel-body">
+                				<div class="col-sm-12 col-md-3 sm-no-padding">
+                					<div class="image-responsive">
+                						//
+                					</div>
+                				</div>
+                				<div class="col-sm-12 col-md-9 sm-no-padding">
+                					<h3>{{ '{{ campaign.title }}' }}</h3>
+                					<p>
+                						<strong>Client: </strong> <span><a href="">{{ '{{ campaign.customer.first_name }} {{ campaign.customer.last_name }} <{{ campaign.customer.email }}>' }}</a></span><br>
+                					    <strong>Status: </strong> <span>{{ '{{ campaign.status }}' }}</span>
+                					</p>
+                					<p>{{ '{{ campaign.brief }}' }}</p>
+                					<p>
+                						<a class="btn btn-primary pull-right" ui-sref="app.influencer.campaign({'id': campaign.id})">Details</a>
+                					</p>
+                				</div>
+                			</div>
+                		</div>
+        			</div>
+        		</div>
+        	</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,150 @@
+<div ng-controller="InfluencerCampaignDetailsCtrl">	
+	<nav class="secondary-sidebar padding-30">
+		<ul class="main-menu">
+			<li ng-if="campaign.status == 'new'">
+				<a href="">Accept</a>
+			</li>
+			<li ng-if="campaign.status == 'new'">
+				<a href="">Reject</a>
+			</li>
+			<li>
+				<a ng-click="switchView()" ng-if="timelineView == false">Timeline View</a>
+				<a ng-click="switchView()" ng-if="timelineView == true">Details View</a>
+			</li>
+		</ul>
+	</nav>
+    <div class="inner-content full-height">
+    	<div class="panel panel-transparent">
+    		<div class="panel-body">
+        	<ul class="breadcrumb">
+        		<li>
+        			<a href="#">Campaigns</a>
+        		</li>
+        		<li>
+        			<a ui-sref="app.influencer.campaigns">List</a>
+        		</li>
+        		<li>
+        			<a href="#" class="active">Details</a>
+        		</li>
+        	</ul>
+        	
+			<div class="panel panel-default" ng-if="timelineView == false">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12 col-md-12">
+							<h3 class="page-title">Campaign details</h3>
+							<div class="panel panel-transparent">
+								<div class="panel-body">
+									<h5>Title:</h5>
+									<p>{{ '{{ campaign.title }}' }}</p>
+									<h5>Brief:</h5>
+									<p>{{ '{{ campaign.brief }}' }}</p>
+									<h5>Client Info:</h5>
+									<p>{{ '{{ campaign.customer.first_name }} {{ campaign.customer.last_name }} <{{ campaign.customer.email }}>' }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 bg-master-lighter" ng-if="timelineView == true">
+				<div class="timeline-container top-circle">
+					<section class="timeline">
+						<div class="timeline-block">
+							<div class="timeline-point success">
+								<i class="pg-map"></i>
+							</div>
+							<div class="timeline-content">
+								<div class="card share full-width">
+									<div class="circle" data-toggle="tooltip" title="" data-container="body" data-original-title="Label"></div>
+									<div class="card-header clearfix">
+										<h5>Action</h5>
+										<div class="clearfix"></div>
+									</div>
+									<div class="card-description">
+										<h5 class="hint-text no-margin">Description</h5>
+									</div>
+									<div class="card-footer clearfix">
+										<div class="pull-right hint-text">Apr 23</div>
+									</div>
+								</div>
+								<div class="event-date">
+        							<small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
+        						</div>
+							</div>
+						</div>
+						<div class="timeline-block">
+							<div class="timeline-point success">
+								<i class="pg-map"></i>
+							</div>
+							<div class="timeline-content">
+								<div class="card share full-width">
+									<div class="circle" data-toggle="tooltip" title="" data-container="body" data-original-title="Label"></div>
+									<div class="card-header clearfix">
+										<h5>Action</h5>
+										<div class="clearfix"></div>
+									</div>
+									<div class="card-description">
+										<h5 class="hint-text no-margin">Description</h5>
+									</div>
+									<div class="card-footer clearfix">
+										<div class="pull-right hint-text">Apr 23</div>
+									</div>
+								</div>
+								<div class="event-date">
+        							<small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
+        						</div>
+							</div>
+						</div>
+						<div class="timeline-block">
+							<div class="timeline-point success">
+								<i class="pg-map"></i>
+							</div>
+							<div class="timeline-content">
+								<div class="card share full-width">
+									<div class="circle" data-toggle="tooltip" title="" data-container="body" data-original-title="Label"></div>
+									<div class="card-header clearfix">
+										<h5>Action</h5>
+										<div class="clearfix"></div>
+									</div>
+									<div class="card-description">
+										<h5 class="hint-text no-margin">Description</h5>
+									</div>
+									<div class="card-footer clearfix">
+										<div class="pull-right hint-text">Apr 23</div>
+									</div>
+								</div>
+								<div class="event-date">
+        							<small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
+        						</div>
+							</div>
+						</div>
+						<div class="timeline-block">
+							<div class="timeline-point success">
+								<i class="pg-map"></i>
+							</div>
+							<div class="timeline-content">
+								<div class="card share full-width">
+									<div class="circle" data-toggle="tooltip" title="" data-container="body" data-original-title="Label"></div>
+									<div class="card-header clearfix">
+										<h5>Action</h5>
+										<div class="clearfix"></div>
+									</div>
+									<div class="card-description">
+										<h5 class="hint-text no-margin">Description</h5>
+									</div>
+									<div class="card-footer clearfix">
+										<div class="pull-right hint-text">Apr 23</div>
+									</div>
+								</div>
+								<div class="event-date">
+        							<small class="fs-12 hint-text">15 January 2015, 06:50 PM</small>
+        						</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>

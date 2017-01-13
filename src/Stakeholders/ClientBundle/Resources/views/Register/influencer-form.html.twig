@@ -1,0 +1,317 @@
+<div class="container-fluid container-fixed-lg m-t-30" ng-controller="RegisterCtrl">
+	<div class="container-sm-height full-height">
+		<div class="row row-sm-height">
+			<div class="col-sm-10 col-sm-height col-middle">
+            	<h2>Sign Up as Influencer</h2>
+            	<form id="form-register" class="p-t-15" role="form" name="register" flow-init ng-init="user.user_type = 'influencer'">
+                	<ul class="nav nav-tabs nav-tabs-linetriangle nav-tabs-separator nav-stack-sm">
+                        <li ng-class="{'active': getCurrentStep() == 1 }">
+                            <a data-toggle="tab" ng-click="goToStep(1)"><i class="fa fa-user tab-icon"></i> <span>Main Info</span></a>
+                        </li>
+                        <li ng-class="{'active': getCurrentStep() == 2 }">
+                            <a data-toggle="tab" ng-click="goToStep(2)"><i class="fa fa-group tab-icon"></i> <span>Audience and influencer data info</span></a>
+                        </li>
+                        <li ng-class="{'active': getCurrentStep() == 3 }">
+                            <a data-toggle="tab" ng-click="goToStep(3)"><i class="fa fa-briefcase tab-icon"></i> <span>Campaign info</span></a>
+                        </li>
+                        <li ng-class="{'active': getCurrentStep() == 4 }">
+                            <a data-toggle="tab" ng-click="goToStep(4)"><i class="fa fa-comments tab-icon"></i> <span>Connecting assets</span></a>
+                        </li>
+                        <li ng-class="{'active': getCurrentStep() == 5 }">
+                            <a data-toggle="tab" ng-click="goToStep(5)"><i class="fa fa-check tab-icon"></i> <span>Thank you</span></a>
+                        </li>
+                    </ul>
+                	<wizard on-finish="finished()" class="bg-white" hide-indicators="true">
+                		<wz-step title="Main Info">
+                			<div class="row row-same-height">
+                				<div class="col-md-5 b-r b-dashed b-grey sm-b-b">
+                					<div class="padding-30 m-t-50">
+                						<i ng-if="$flow.files.length == 0" class="fa fa-user fa-2x hint-text"></i>
+                						<img ng-if="$flow.files.length > 0" flow-img="$flow.files[0]" class="img-responsive" />
+                						<h2>Main info</h2>
+                						<p>Some text for influencer</p>
+                						<p class="small hint-text">Some details</p>
+                					</div>
+                				</div>
+                				<div class="col-md-7">
+                					<div class="padding-30">
+                						<div class="row">
+                    						<div class="col-sm-12">
+                    							<input type="hidden" ng-model="user.user_type">
+                    							<div pg-form-group class="form-group form-group-default required">
+                    								<div class="alert" flow-drop>
+                    									<label>Profile Image</label>
+                    									<span class="btn btn-block btn-primary" flow-btn>Select File</span>
+                    									<br>
+                    									<div class="alert alert-default text-center bordered" style="height: 100px;" flow-drop>
+                    										<h4>Or Drag And Drop your file here</h4>
+                    									</div>
+                    								</div>
+                    							</div>
+                							</div>
+                						</div>
+            							<div class="row">
+                    						<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': register.username.$invalid && !register.username.$pristine }">
+                    								<label>Username</label>
+                    								<input type="text" name="username" placeholder="Username" class="form-control" ng-model="user.username" required>
+                    							</div>
+                    							<label class="error" for="username" ng-show="register.username.$invalid && !register.username.$pristine">This field is required.</label>
+                    						</div>
+                    					</div>
+                    					<div class="row">
+                    						<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': register.email.$invalid && !register.email.$pristine }">
+                    								<label>Email</label>
+                    								<input type="email" name="email" placeholder="Email" class="form-control" ng-model="user.email" required>
+                    							</div>
+                    							<label class="error" for="email" ng-show="register.email.$invalid && !register.email.$pristine">Enter a valid email.</label>
+                    						</div>
+                    					</div>
+                    					<div class="row">
+                    						<div class="col-sm-6">
+                    							<div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': register.first_name.$invalid && !register.first_name.$pristine }">
+                    								<label>First Name</label>
+                    								<input type="text" name="first_name" placeholder="John" class="form-control" ng-model="user.first_name" required>
+                    							</div>
+                    							<label class="error" for="first_name" ng-show="register.first_name.$invalid && !register.first_name.$pristine">This field is required.</label>
+                    						</div>
+                    						<div class="col-sm-6">
+                    							<div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': register.last_name.$invalid && !register.last_name.$pristine }">
+                    								<label>Last Names</label>
+                    								<input type="text" name="last_name" placeholder="Smith" class="form-control" ng-model="user.last_name" required>
+                    							</div>
+                    							<label class="error" for="last_name" ng-show="register.last_name.$invalid && !register.last_name.$pristine">This field is required.</label>
+                    						</div>
+                    					</div>
+                    					<div class="row">
+                    						<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': user.contact_number.$invalid && !user.contact_number.$pristine }">
+                    								<label>Contact Number</label>
+                    								<input type="text" name="contact_number" placeholder="Contact Number" class="form-control" ng-model="user.contact_number" ui-jq="mask" ui-options="'(999) 999-9999'">
+                    							</div>
+                    							<label class="error" for="contact_number" ng-show="register.contact_number.$invalid && !register.contact_number.$pristine">This field is required.</label>
+                    						</div>
+                    					</div>
+                    					<div class="row">
+                    						<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': register.password.$invalid && !register.password.$pristine }">
+                    								<label>Password</label>
+                    								<input type="password" name="password" placeholder="Minimum of 4 Charactors" class="form-control" ng-minlength="4" ng-model="user.password" required>
+                    							</div>
+                    							<label class="error" for="password" ng-show="register.password.$invalid && !register.password.$pristine">This field is required.</label>
+                    							<label class="error" for="password" ng-show="register.password.$error.minlength">Password should have at least 4 characters</label>
+                    						</div>
+                    					</div>
+                					</div>
+                				</div>
+                			</div>
+                			<div class="padding-20 bg-white">
+                				<ul class="pager wizard">
+                					<li class="next">
+                						<button type="button" class="btn btn-primary btn-cons btn-animated from-left fa fa-group pull-right" wz-next>
+                							<span>Next</span>
+                						</button>
+                					</li>
+                					<li class="previous disabled">
+                						<button type="button" class="btn btn-default btn-cons pull-right">
+                							<span>Previous</span>
+                						</button>
+                					</li>
+                				</ul>
+                			</div>
+                		</wz-step>
+                		<wz-step title="Audience and influencer data info">
+                			<div class="row row-same-height">
+                				<div class="col-md-5 b-r b-dashed b-grey sm-b-b">
+                					<div class="padding-30 m-t-50">
+                						<i class="fa fa-group fa-2x hint-text"></i>
+                						<h2>Audience and influencer data info</h2>
+                						<p>Some text for influencer</p>
+                						<p class="small hint-text">Some details</p>
+                					</div>
+                				</div>
+                				<div class="col-md-7">
+                					<div class="padding-30">
+                						<div class="row">
+                    						<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default">
+                    								<label>Website</label>
+                    								<input type="text" name="webiste" placeholder="Website" class="form-control" ng-model="user.webiste">
+                    							</div>
+                    						</div>
+                    					</div>
+                						<div class="row">
+                							<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default" style="height: 150px;">
+                    								<label>About Me</label>
+                    								<textarea name="bio" class="form-control" rows="3" ng-model="user.bio"></textarea>
+                    							</div>
+                    						</div>
+                    					</div>
+                    					<div class="row">
+                    						<div class="col-sm-12" id="audience-list">
+                    							<div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': register.audience.$invalid && !register.audience.$pristine }">
+                    								<label>Audience</label>
+                    								<input type="text" name="audience" placeholder="Audience" class="tagsinput custom-tag-input" ui-jq="tagsinput">
+                    							</div>
+                    							<label class="error" for="audience" ng-show="register.audience.$invalid && !register.audience.$pristine">This field is required.</label>
+                    						</div>
+                    					</div>
+                					</div>
+                				</div>
+                			</div>
+                			<div class="padding-20 bg-white">
+                				<ul class="pager wizard">
+                					<li class="next">
+                						<button type="button" class="btn btn-primary btn-cons btn-animated from-left fa fa-briefcase pull-right" wz-next>
+                							<span>Next</span>
+                						</button>
+                					</li>
+                					<li class="previous">
+                						<button type="button" class="btn btn-default btn-cons pull-right" wz-previous>
+                							<span>Previous</span>
+                						</button>
+                					</li>
+                				</ul>
+                			</div>
+                		</wz-step>
+                		<wz-step title="Campaign info">
+                			<div class="row row-same-height">
+                				<div class="col-md-5 b-r b-dashed b-grey sm-b-b">
+                					<div class="padding-30 m-t-50">
+                						<i class="fa fa-briefcase fa-2x hint-text"></i>
+                						<h2>Campaign info</h2>
+                						<p>Some text for influencer</p>
+                						<p class="small hint-text">(budget, frequency, etc.)</p>
+                					</div>
+                				</div>
+                				<div class="col-md-7">
+                					<div class="padding-30">
+                						<div class="row">
+                    						<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default form-group-default-select">
+                    								<label>Post Types</label>
+                    								<ui-select multiple ng-model="price.selected_types" theme="select2" style="width:100%" ng-disabled="disabled">
+                    									<ui-select-match placeholder="Select post type...">{{ '{{ $item.name }}' }}</ui-select-match>
+                    									<ui-select-choices repeat="type in price.post_types | filter: $select.search">
+                    										<div ng-bind-html="trustAsHtml((type.name | highlight: $select.search))"></div>
+                    									</ui-select-choices>
+                    								</ui-select>
+                    							</div>
+                    						</div>
+                    					</div>
+                    					<div class="row" ng-repeat="post_type in price.selected_types">
+                    						<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default input-group">
+                    								<label>{{ '{{ post_type.name }}' }} Price</label>
+                    								<input type="text" name="prices_{{ '{{ post_type.tag }}' }}" placeholder="{{ '{{ post_type.name }}' }} Price" class="form-control" ng-model="user.prices[post_type.tag]">
+                    								<span class="input-group-addon">$</span>
+                    							</div>
+                    						</div>
+                    					</div>
+                    					<div class="row">
+                    						<div class="col-sm-12">
+                    							<div pg-form-group class="form-group form-group-default required" ng-class="{ 'has-error': register.frequency.$invalid && !register.frequency.$pristine }">
+                    								<label>Frequency</label>
+                    								<input type="text" name="frequency" placeholder="Frequency" class="form-control" ng-model="user.frequency" required>
+                    							</div>
+                    							<label class="error" for="frequency" ng-show="register.frequency.$invalid && !register.frequency.$pristine">This field is required.</label>
+                    						</div>
+                    					</div>
+                					</div>
+                				</div>
+                			</div>
+                			<div class="padding-20 bg-white">
+                				<ul class="pager wizard">
+                					<li class="next">
+                						<button type="button" class="btn btn-primary btn-cons btn-animated from-left fa fa-comments pull-right" wz-next>
+                							<span>Next</span>
+                						</button>
+                					</li>
+                					<li class="previous">
+                						<button type="button" class="btn btn-default btn-cons pull-right" wz-previous>
+                							<span>Previous</span>
+                						</button>
+                					</li>
+                				</ul>
+                			</div>
+                		</wz-step>
+                		<wz-step title="Connecting assets">
+                			<div class="row row-same-height">
+                				<div class="col-md-5 b-r b-dashed b-grey sm-b-b">
+                					<div class="padding-30 m-t-50">
+                						<i class="fa fa-comments fa-2x hint-text"></i>
+                						<h2>Connecting assets</h2>
+                						<p>(Social media accounts / GA)</p>
+                						<p class="small hint-text">some other comments</p>
+                					</div>
+                				</div>
+                				<div class="col-md-7">
+                					<div class="padding-30">
+                						<h4>Connect please at least one social network</h4>
+                    					<div class="row" ng-repeat="network in accounts.networks_available">
+                    						<div class="col-sm-10">
+            									<br>
+            									<div class="input-group">
+                        							<a ng-click="connectAccount(network.tag)" class="btn btn-block" ng-class="{'btn-primary':(user.socials[network.tag] == undefined), 'btn-success':(user.socials[network.tag])}">
+                    									<span class="pull-left">
+                    										<i class="fa fa-{{ '{{ network.tag }}' }}"></i>
+                    									</span> 
+                    									<span>{{ '{{ network.name }}' }}</span>
+                    									<span ng-if="user.socials[network.tag].userID != undefined"> Connected <i class="fa fa-check"></i></span>
+                    								</a>
+                    							</div>
+                    						</div>
+                    					</div>
+                					</div>
+                				</div>
+                			</div>
+                			<div class="padding-20 bg-white">
+                				<ul class="pager wizard">
+                					<li class="next">
+                						<button type="button" class="btn btn-primary btn-cons btn-animated from-left fa fa-check pull-right" wz-next>
+                							<span>Next</span>
+                						</button>
+                					</li>
+                					<li class="previous">
+                						<button type="button" class="btn btn-default btn-cons pull-right" wz-previous>
+                							<span>Previous</span>
+                						</button>
+                					</li>
+                				</ul>
+                			</div>
+                		</wz-step>
+                		<wz-step title="Summary">
+                				<div class="padding-30">
+                					<h1 class="text-center">Thank you.</h1>
+                        				<h2 class="text-center">Check please your info</h2>
+                        				<img ng-if="$flow.files.length > 0" flow-img="$flow.files[0]" class="img-responsive" />
+                        				<ul>
+                        					<li ng-repeat="(key, info) in user">
+                        						<strong>{{ '{{ key }}' }}: </strong>
+                        						<span>{{ '{{ info }}' }}</span>
+                        					</li>
+                        				</ul>
+                        		</div>
+                    			<div class="padding-20 bg-white">
+                    				<ul class="pager wizard">
+                    					<li class="next">
+                    						<button type="button" class="btn btn-primary btn-cons btn-animated from-left fa fa-check pull-right" ng-click="finish()" wz-finish>
+                    							<span>Finish</span>
+                    						</button>
+                    					</li>
+                    					<li class="previous">
+                    						<button type="button" class="btn btn-default btn-cons pull-right" wz-previous>
+                    							<span>Previous</span>
+                    						</button>
+                    					</li>
+                    				</ul>
+                    			</div>
+                		</wz-step>
+                	</wizard>
+                </form>
+			</div>
+		</div>
+	</div>
+</div>

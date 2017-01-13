@@ -1,0 +1,32 @@
+Stakeholders\ApiBundle\Entity\User:
+    admin:
+        username (unique): admin
+        firstName: Super
+        lastName: Administrator
+        email (unique): admin@stakeholders.dev
+        brief: '<text()>'
+        isApproved: true
+        plainPassword: B!e281ckr
+        addRole: ['ROLE_SUPER_ADMIN']
+        enabled: true
+    user (template):
+        username (unique): '<userName()>'
+        photo: '<imageUrl()>'
+        firstName: '<firstName()>'
+        lastName: '<lastName()>'
+        email (unique): '<safeEmail()>'
+        brief: '<text()>'
+        isApproved: true
+        plainPassword: B!e281ckr
+        enabled: true
+    customer{1..80} (extends user):
+        addRole: [ROLE_CUSTOMER]
+    influencer{1..40} (extends user):
+        addRole: [ROLE_INFLUENCER]
+        customers: '<numberBetween(1, 10)>x @customer*'
+    agency{1..20} (extends user):
+        firstName: '<company()>'
+        lastName: '<companySuffix()>'
+        email (unique): '<companyEmail()>'
+        addRole: [ROLE_AGENCY]
+        influencers: '<numberBetween(1, 10)>x @influencer*'

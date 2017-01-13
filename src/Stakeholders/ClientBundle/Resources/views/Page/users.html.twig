@@ -1,0 +1,30 @@
+<div class="container-fluid container-fixed-lg" ng-controller="UsersCtrl">
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">Admin</a>
+		</li>
+		<li>
+			<a href="#" class="active">Users</a>
+		</li>
+	</ul>
+	<h3 class="page-title">Users List</h3>
+	<div class="row">
+		<div class="col-md-12 sm-no-padding">
+        	<div class="panel panel-transparent">
+        		<div class="panel-body">
+        			<table class="table table-hover" id="usersTable" ui-jq="dataTable" ui-options="options">
+        				<thead>
+        					<tr>
+        						<th>ID</th>
+        						<th>Username</th>
+        						<th>Email</th>
+        						<th>Role</th>
+        						<th>Actions</th>
+        					</tr>
+        				</thead>
+        			</table>
+        		</div>
+        	</div>
+        </div>
+    </div>
+</div>

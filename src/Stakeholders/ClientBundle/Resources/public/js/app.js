@@ -3,6 +3,8 @@
 angular.module('app', [
 	'LocalStorageModule',
     'ui.router',
+    'ui.select',
     'ui.utils',
-    'oc.lazyLoad'
+    'oc.lazyLoad',
+    'flow'
 ]);

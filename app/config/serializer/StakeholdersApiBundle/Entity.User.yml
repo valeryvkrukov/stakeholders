@@ -5,6 +5,8 @@ Stakeholders\ApiBundle\Entity\User:
             expose: true
         lastName:
             expose: true
+        photo:
+            expose: true
         brief:
             expose: true
         isApproved:

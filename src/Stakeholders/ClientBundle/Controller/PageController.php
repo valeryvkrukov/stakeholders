@@ -18,11 +18,45 @@ class PageController extends Controller
 	}
 	
 	/**
+	 * @Route("/me", name="sh_page_me", options={"expose"=true})
 	 * @Route("/user", name="sh_page_user_profile", options={"expose"=true})
 	 */
 	public function userProfileAction()
 	{
 		return $this->render('StakeholdersClientBundle:Page:user-profile.html.twig');
+	}
+	
+	/**
+	 * @Route("/payments", name="sh_page_payments", options={"expose"=true})
+	 */
+	public function paymentsAction()
+	{
+		return $this->render('StakeholdersClientBundle:Page:payments.html.twig');
+	}
+	
+	/**
+	 * @Route("/users", name="sh_page_users", options={"expose"=true})
+	 */
+	public function usersAction()
+	{
+		return $this->render('StakeholdersClientBundle:Page:users.html.twig');
+	}
+	
+	/**
+	 * @Route("/influencer/campaigns", name="sh_page_influencer_campaigns", options={"expose"=true})
+	 */
+	public function influencerCampaignsAction()
+	{
+		return $this->render('StakeholdersClientBundle:Page:influencer/campaigns.html.twig');
+	}
+	
+	/**
+	 * @Route("/influencer/campaign/{id}", name="sh_page_influencer_campaign_details", options={"expose"=true})
+	 */
+	public function influencerCampaignDetailsAction($id)
+	{
+		
+		return $this->render('StakeholdersClientBundle:Page:influencer/campaign-details.html.twig');
 	}
 	
 	/**

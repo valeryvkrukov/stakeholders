@@ -1,88 +1,90 @@
-<div class="container-fluid container-fixed-lg" ng-controller="UserProfileCtrl">
-	<ul class="breadcrumb">
-		<li>
-			<a href="#">User</a>
-		</li>
-		<li>
-			<a href="#" class="active">Profile</a>
-		</li>
-	</ul>
-	<h3 class="page-title">Profile</h3>
-	<div class="row">
-		<div class="col-md-8 sm-no-padding">
-			<div class="panel panel-transparent">
-				<ul class="nav nav-tabs nav-tabs-linetriangle" pg-tab-dropdownfx>
-					<li class="active">
-						<a data-toggle="tab" pg-tab href="#profile-overview"><span>Overview</span></a>
-					</li>
-					<li>
-						<a data-toggle="tab" pg-tab href="#profile-edit"><span>Edit</span></a>
-					</li>
-				</ul>
-				<div class="tab-content">
-					<div class="tab-pane active" id="profile-overview">
-						<div class="row">
-							<div class="col-md-12">
-								<h3>Profile overview</h3>
-								<p>
-									<strong>Username: </strong> <span class="semi-bold">{{ '{{ username }}' }}</span>
-								</p>
-								<p>
-									<strong>Email: </strong> <span class="semi-bold">{{ '{{ email }}' }}</span>
-								</p>
-								<p>
-									<strong>Full name: </strong> 
-									<span class="semi-bold">
-										<i ng-if="fullname == 'not set'">[{{ '{{ fullname }}' }}]</i>
-										<span ng-if="fullname != 'not set'">{{ '{{ fullname }}' }}</span>
-									</span>
-								</p>
-								<p>
-									<strong>Access level: </strong> <span class="semi-bold">{{ '{{ getAccessLevel() }}' }}</span>
-								</p>
-							</div>
-						</div>
-					</div>
-					<div class="tab-pane" id="profile-edit">	
-						<div class="row">
-							<div class="col-md-12">
-								<h3>Edit profile</h3>
-								<form role="form">
-									<div class="row">
-										<div class="col-md-6">
-        									<div class="form-group form-group-default">
-        										<label for="username">Username</label>
-        										<input type="text" class="form-control" id="username" ng-model="user.username" placeholder="{{ '{{ username }}' }}" required>
-        									</div>
-        								</div>
-        								<div class="col-md-6">
-        									<div class="form-group form-group-default">
-        										<label for="email">Email</label>
-        										<input type="email" class="form-control" id="email" ng-model="user.email" placeholder="{{ '{{ email }}' }}" required>
-        									</div>
-        								</div>
-        							</div>
-        							<div class="row">
-										<div class="col-md-6">
-        									<div class="form-group form-group-default">
-        										<label for="firstName">First Name</label>
-        										<input type="text" class="form-control" id="firstName" ng-model="user.firstName" placeholder="{{ '{{ firstName }}' }}">
-        									</div>
-        								</div>
-        								<div class="col-md-6">
-        									<div class="form-group form-group-default">
-        										<label for="lastName">Last Name</label>
-        										<input type="text" class="form-control" id="lastName" ng-model="user.lastName" placeholder="{{ '{{ lastName }}' }}">
-        									</div>
-        								</div>
-        							</div>
-        							<button class="btn btn-primary">Update</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+<div class="social-wrapper" ng-controller="UserProfileCtrl">
+	<div class="social " data-pages="social">
+		
+        <div class="jumbotron" data-pages="parallax" data-social="cover">
+        	<div class="cover-photo">
+        		<img alt="Cover photo" src="{{ asset('img/cover.png') }}" />
+        	</div>
+        	<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+        		<div class="inner">
+        			<div class="pull-bottom bottom-left m-b-40">
+        				<h5 class="text-white no-margin">welcome to pages social</h5>
+        				<h1 class="text-white no-margin"><span class="semi-bold">social</span> cover</h1>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+
+		<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+            <div class="card no-border bg-transparent full-width" data-social="item">
+            	<div class="container-fluid p-t-30 p-b-30">
+            		<div class="row">
+            			<div class="col-md-4">
+            				<div class="container-xs-height">
+            					<div class="row-xs-height">
+            						<div class="social-user-profile col-xs-height text-center col-top">
+            							<div class="thumbnail-wrapper d48 circular bordered b-white">
+            								<img alt="Avatar" width="55" height="55" data-src-retina="{{ '{{ user.profile_image }}' }}" data-src="{{ '{{ user.profile_image }}' }}" src="{{ '{{ user.profile_image }}' }}">
+            							</div>
+            							<br>
+                                        <i class="fa fa-check-circle text-success fs-16 m-t-10"></i>
+            						</div>
+            						<div class="col-xs-height p-l-20">
+            							<h3 class="no-margin">{{ '{{ user.first_name }} {{ user.last_name }}' }}</h3>
+            							<p class="no-margin fs-16" ng-repeat="(network, data) in user.socials">
+            								<a href="{{ '{{ data.link }}' }}"><i class="fa fa-{{ '{{ network }}' }}"></i> {{ '{{ data.username }}' }}</a>
+            							</p>
+            						</div>
+            					</div>
+            				</div>
+            			</div>
+            			<div class="col-md-4">
+            				<p class="no-margin fs-16">{{ '{{ user.brief }}' }}</p>
+            				<p class="hint-text m-t-5 small"> // </p>
+            			</div>
+            			<div class="col-md-4" ng-if="user.role == 'influencer'">
+            				<p class="m-b-5 small">Customers</p>
+            				<ul class="list-unstyled" ng-if="user.customers.length > 0">
+            					<li ng-repeat="customer in user.customers">
+            						<div class="thumbnail-wrapper d32 circular b-white m-r-5 b-a b-white">
+            							<a ui-sref="app.profile({id: customer.id})">
+            								<img width="35" height="35" data-src-retina="{{ '{{ customer.photo }}'|raw }}" data-src="{{ '{{ customer.photo }}'|raw }}" alt="{{ '{{ customer.first_name }} {{ customer.last_name }}' }}" src="{{ '{{ customer.photo }}'|raw }}">
+            							</a>
+            						</div>
+            					</li>
+            				</ul>
+            			</div>
+            		</div>
+            	</div>
+            </div>
 		</div>
+		
+		<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+            <div class="card no-border bg-transparent full-width" data-social="item">
+            	<div class="container-fluid p-t-30 p-b-30">
+            		<div class="row">
+            			<div class="col-md-12 sm-no-padding">
+            				<div class="panel panel-transparent">
+            					<ul class="nav nav-tabs nav-tabs-linetriangle" pg-tab-dropdownfx>
+            						<li ng-class="{active: $index == 0}" ng-repeat="(network, data) in user.socials">
+            							<a data-toggle="tab" pg-tab ng-click="loadFeed(network)" href="#{{ '{{ network }}' }}-posts"><i class="fa fa-{{ '{{ network }}' }}"></i> <span>{{ '{{ network|capitalize }}' }}</span></a>
+            						</li>
+            					</ul>
+            					<div class="tab-content">
+            						<div ng-class="{active: $index == 0}" class="tab-pane" id="{{ '{{ network }}' }}-posts" ng-repeat="(network, data) in user.socials">
+            							<div class="row">
+            								<div class="col-md-12">
+            								
+            								</div>
+            							</div>
+            						</div>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            	</div>
+            </div>
+        </div>
+        
 	</div>
 </div>

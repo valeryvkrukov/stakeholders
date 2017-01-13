@@ -10,7 +10,7 @@
 		<div class="pull-center hidden-md hidden-lg">
 			<div class="header-inner">
 				<div class="brand inline">
-					<img src="{{ asset('assets/img/logo.png') }}" alt="logo" data-src="{{ asset('assets/img/logo.png') }}" data-src-retina="{{ asset('assets/img/logo_2x.png') }}" width="78" height="22">
+					<img src="{{ asset('assets/img/logo.png') }}" alt="logo" data-src="{{ asset('assets/img/logo.png') }}" data-src-retina="{{ asset('assets/img/logo_2x.png') }}" height="35">
 				</div>
 			</div>
 		</div>
@@ -18,11 +18,27 @@
 	<div class=" pull-left sm-table hidden-xs hidden-sm">
 		<div class="header-inner">
 			<div class="brand inline">
-				<img src="{{ asset('assets/img/logo.png') }}" alt="logo" data-src="{{ asset('assets/img/logo.png') }}" ui-jq="unveil" data-src-retina="{{ asset('assets/img/logo_2x.png') }}" width="78" height="22">
+				<img src="{{ asset('assets/img/logo.png') }}" alt="logo" data-src="{{ asset('assets/img/logo.png') }}" ui-jq="unveil" data-src-retina="{{ asset('assets/img/logo_2x.png') }}" height="35">
 			</div>
 			<ul class="notification-list no-margin hidden-sm hidden-xs b-grey b-l b-r no-style p-l-30 p-r-20">
-			
+				<li class="p-r-15 inline">
+					<div class="dropdown">
+						<a href="javascript:;" id="notification-center" class="icon-set globe-fill" data-toggle="dropdown">
+							<span class="bubble"></span>
+						</a>
+						<div class="dropdown-menu notification-toggle" role="menu" aria-labelledby="notification-center" pg-notification-center>
+							<div class="notification-panel">
+								<div class="notification-body scrollable">
+									<div class="notification-item unread clearfix">
+									
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
 			</ul>
+			<a class="search-link" ng-click="showSearchOverlay()"><i class="pg-search"></i>Type anywhere to <span class="bold">search</span></a>
 		</div>
 	</div>
 	<div class="pull-right">
@@ -33,19 +49,17 @@
 	<div class="pull-right">
 		<div class="visible-lg visible-md m-t-10">
 			<div class="pull-left p-r-10 p-t-10 fs-16 font-heading">
-				<span class="semi-bold">{{ '{{ username }}' }}</span> <span class="text-master"></span>
+				<span class="semi-bold">{{ '{{ first_name }}' }}</span> <span class="text-master">{{ '{{ last_name }}' }}</span>
 			</div>
 			<div class="dropdown pull-right">
 				<button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="thumbnail-wrapper d32 circular inline m-t-5">
-						<img src="{{ asset('assets/img/profiles/avatar.jpg') }}" alt="" data-src="{{ asset('assets/img/profiles/avatar.jpg') }}" ui-jq="unveil" data-src-retina="{{ asset('assets/img/profiles/avatar_small2x.jpg') }}" width="32" height="32">
+						<img src="{{ '{{ profile_image }}' }}" alt="" data-src="{{ '{{ profile_image }}' }}" ui-jq="unveil" data-src-retina="{{ '{{ profile_image }}' }}" width="32" height="32">
 					</span>
 				</button>
 				<ul class="dropdown-menu profile-dropdown" role="menu">
-                    <li><a ui-sref="app.user_profile"><i class="pg-settings_small"></i> Profile</a>
-                    </li>
-                    <li><a href=""><i class="pg-outdent"></i> Feedback</a>
-                    </li>
+                    <li><a ui-sref="app.me"><i class="pg-settings_small"></i> Profile</a></li>
+                    <li><a href=""><i class="pg-credit_card_line"></i> Payments</a></li>
                     <li><a href=""><i class="pg-signals"></i> Help</a>
                     </li>
                     <li class="bg-master-lighter">

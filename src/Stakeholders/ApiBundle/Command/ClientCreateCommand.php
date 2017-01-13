@@ -22,8 +22,8 @@ class ClientCreateCommand extends ContainerAwareCommand
 	{
 		$clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
 		$client = $clientManager->createClient();
-		$client->setRedirectUris($input->getOption('redirect-uri'));
-		$client->setAllowedGrantTypes($input->getOption('grant-type'));
+		$client->setRedirectUris(array('http://sh.4m-team.pro'));
+		$client->setAllowedGrantTypes(array('password'));
 		$clientManager->updateClient($client);
 		$output->writeln('<info>Added a new client:</info>');
 		$output->writeln(sprintf('Public ID: <comment>%s</comment>', $client->getPublicId()));

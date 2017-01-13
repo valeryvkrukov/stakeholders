@@ -1,12 +1,11 @@
-<nav class="page-sidebar" data-pages="sidebar" pg-sidebar>
+<nav class="page-sidebar" data-pages="sidebar" pg-sidebar ng-controller="SidebarCtrl">
 	<div class="sidebar-overlay-slide from-top" id="appMenu">
 	
 	</div>
 	<div class="sidebar-header">
-		<img src="{{ asset('assets/img/logo_white.png') }}" alt="logo" class="brand" data-src="{{ asset('assets/img/logo_white.png') }}" ui-jq="unveil" data-src-retina="{{ asset('assets/img/logo_white_2x.png') }}" width="78" height="22">
+		<img src="{{ asset('assets/img/logo_white.png') }}" alt="logo" class="brand" data-src="{{ asset('assets/img/logo_white.png') }}" ui-jq="unveil" data-src-retina="{{ asset('assets/img/logo_white_2x.png') }}" height="35">
 		<div class="sidebar-header-controls">
 			<button type="button" class="btn btn-xs sidebar-slide-toggle btn-link m-l-20" data-pages-toggle="#appMenu"><i class="fa fa-angle-down fs-16"></i></button>
-			<button type="button" class="btn btn-link visible-lg-inline" data-toggle-pin="sidebar"><i class="fa fs-12"></i></button>
 		</div>
 	</div>
 	<div class="sidebar-menu">
@@ -17,6 +16,26 @@
 					<span class="details"></span>
 				</a>
 				<span class="icon-thumbnail"><i class="pg-home"></i></span>
+			</li>
+			<li ng-if="user.data.role == 'influencer'" class="m-t-30 open" ui-sref-active="active">
+				<a ui-sref="app.influencer.campaigns" class="detailed">
+					<span class="title">Campaigns</span>
+					<span class="details"></span>
+				</a>
+				<span class="icon-thumbnail"><i class="pg-social"></i></span>
+			</li>
+			<li ng-if="user.data.role == 'admin'" ng-class="{'open active':includes('app.users')}">
+				<a href="javascript:;">
+					<span class="title">Users</span>
+					<span class=" arrow" ng-class="{'active open':$state.includes('app.users')}"></span>
+				</a>
+				<span class="icon-thumbnail">U</span>
+				<ul class="sub-menu">
+					<li ui-sref-active="active">
+						<a ui-sref="app.users.list">List</a>
+						<span class="icon-thumbnail">ul</span>
+					</li>
+				</ul>
 			</li>
 		</ul>
 		<div class="clearfix"></div>

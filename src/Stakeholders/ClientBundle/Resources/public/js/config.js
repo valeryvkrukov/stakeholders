@@ -24,6 +24,7 @@ app.config(['$httpProvider', function($httpProvider) {
 				var currentUser = localStorageService.get('currentUser');
 				var accessToken = currentUser?currentUser.access_token:null;
 				if (accessToken) {
+					config.headers['Authorization'] = 'Bearer ' + accessToken;
 		            config.headers['X-Stakeholders-Token'] = accessToken;
 		            config.headers['X-Stakeholders-Refresh'] = currentUser.refresh_token;
 		        }
@@ -53,9 +54,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$ocLazyLoa
 	    	resolve: lazyLoad(['security'], [])
 	    })
 	    .state('access.register', {
-	    	url: '/register',
-	    	templateUrl: Routing.generate('sh_block_register'),
-	    	resolve: lazyLoad(['register'], [])
+	    	url: '/register/:type',
+	    	templateUrl: function($stateParams) {
+	    		return Routing.generate('sh_block_register', {'type': $stateParams.type});
+	    	},
+	    	resolve: lazyLoad(['register'], ['select', 'wizard', 'tagsInput', 'dropzone', 'inputMask', 'select'])
 	    })
 	    .state('access.confirmation', {
 	    	url: '/confirmation',
@@ -68,7 +71,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$ocLazyLoa
 	    	data: {
 	    		requireLogin: true
 	    	},
-	    	resolve: lazyLoad(['header'], [])
+	    	resolve: lazyLoad(['header', 'search', 'sidebar'], [])
         })
         .state('app.dashboard', {
         	url: '/dashboard',
@@ -84,10 +87,55 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$ocLazyLoa
                 'switchery'
             ])
         })
-        .state('app.user_profile', {
-        	url: '/profile',
-        	templateUrl: Routing.generate('sh_page_user_profile'),
+        .state('app.users', {
+        	abstract: true,
+        	url: '/users',
+        	template: '<div class="full-height" ui-view></div>',
+	    	data: {
+	    		requireLogin: true
+	    	}
+        })
+        .state('app.users.list', {
+        	url: '/list',
+        	templateUrl: Routing.generate('sh_page_users'),
+        	resolve: lazyLoad(['users'], ['dataTables'])
+        })
+        .state('app.me', {
+        	url: '/me',
+        	templateUrl: Routing.generate('sh_page_me'),
         	resolve: lazyLoad(['user-profile'], [])
+        })
+        .state('app.profile', {
+        	url: '/profile/:id',
+        	templateUrl: function($stateParams) {
+        		return Routing.generate('sh_page_user_profile', {'id': $stateParams.id});
+        	},
+        	resolve: lazyLoad(['user-profile'], ['tagsInput'])
+        })
+        .state('app.influencer', {
+        	abstract: true,
+        	url: '/influencer',
+        	template: '<div class="full-height" ui-view></div>',
+	    	data: {
+	    		requireLogin: true
+	    	}
+        })
+        .state('app.influencer.campaigns', {
+        	url: '/campaigns',
+        	templateUrl: Routing.generate('sh_page_influencer_campaigns'),
+        	resolve: lazyLoad(['influencer-campaigns'], [])
+        })
+        .state('app.influencer.campaign', {
+        	url: '/campaign/:id',
+        	templateUrl: function($stateParams) {
+        		return Routing.generate('sh_page_influencer_campaign_details', {'id': $stateParams.id});
+        	},
+        	resolve: lazyLoad(['influencer-campaign-details'], [])
+        })
+        .state('app.payments', {
+        	url: '/payments',
+        	templateUrl: Routing.generate('sh_page_payments'),
+        	resolve: lazyLoad(['payments'], [])
         });
 	
 	function lazyLoad(ctrl, plugins) {

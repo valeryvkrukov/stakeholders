@@ -22,3 +22,11 @@ parameters:
     api_client_id: something
     api_client_secret: something
     
+    # Google API keys
+    google_api_key: 758902806102-sh9om8tu0bbbbgvecsokav3uimkmaekj.apps.googleusercontent.com
+    google_api_secret: 9CuZs3D6hwTPt8C_vGlPKMfo
+    
+    # FB API keys
+    fb_api_key: 1223551571026721
+    fb_api_secret: 88ff6b40268196a0d6aa2ce818b6cc72
+    

@@ -44,7 +44,7 @@ class OAuthUserProvider implements UserProviderInterface
 	
 	protected function getOAuthUser($token)
 	{
-		$url = $this->container->get('router')->generate('get_user');
+		$url = $this->container->get('router')->generate('get_me');
 		$client = new Client(array('base_uri' => $this->container->getParameter('api_url')));
 		try {
 			$res = $client->get($url, array(

@@ -20,7 +20,10 @@ class AppKernel extends Kernel
         	new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
         	new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         	new JMS\SerializerBundle\JMSSerializerBundle(),
+        	new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         	new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+        	new Nelmio\CorsBundle\NelmioCorsBundle(),
+        	new Vich\UploaderBundle\VichUploaderBundle(),
             new Stakeholders\ApiBundle\StakeholdersApiBundle(),
             new Stakeholders\ClientBundle\StakeholdersClientBundle(),
         ];
@@ -30,6 +33,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         }
 
         return $bundles;

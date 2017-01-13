@@ -1,4 +1,14 @@
 services:
-#    stakeholders_api.example:
-#        class: Stakeholders\ApiBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    #stakeholders_api.hwi.user_provider:
+    #    class: Stakeholders\ApiBundle\Security\StakeholdersFOSUBUserProvider
+    #    arguments: ["@fos_user.user_manager", { facebook: facebook_id }]
+    
+    stakeholders_api.social_auth_security:
+        class: Stakeholders\ApiBundle\Security\OAuth\SuccessHandler
+        arguments: ["@router"]
+    
+    stakeholders_api.social_connector:
+        class: Stakeholders\ApiBundle\Security\OAuth\Connector
+        arguments: ["@fos_user.user_manager", {}]
+        calls:
+            - [ "injectRequestStack", ["@request_stack"]]

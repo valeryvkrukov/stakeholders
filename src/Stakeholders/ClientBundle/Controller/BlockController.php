@@ -59,4 +59,19 @@ class BlockController extends Controller
 		return $this->render('StakeholdersClientBundle:Block:footer.html.twig');
 	}
 	
+	/**
+	 * @Route("/search", name="sh_block_search", options={"expose"=true})
+	 */
+	public function searchAction()
+	{
+		return $this->render('StakeholdersClientBundle:Block:search.html.twig');
+	}
+	
+	/**
+	 * @Route("/quickview", name="sh_block_quickview", options={"expose"=true})
+	 */
+	public function quickviewAction()
+	{
+		return $this->render('StakeholdersClientBundle:Block:quickview.html.twig');
+	}
 }

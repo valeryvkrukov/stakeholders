@@ -26,10 +26,45 @@ fos_oauth_server_authorize:
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
     prefix: /oauth/v2
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /access/connect
+    options:
+        expose: true
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /access/connect
+    options:
+        expose: true
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /access/connect
+    options:
+        expose: true
+
+facebook_login:
+    path: /access/login/check-facebook
     
 user:
     type: rest
     resource: Stakeholders\ApiBundle\Controller\UserController
     prefix: /v1
+    options:
+        expose: true
+
+influencer:
+    type: rest
+    resource: Stakeholders\ApiBundle\Controller\InfluencerController
+    prefix: /v1
+    options:
+        expose: true
+        
+user_register:
+    type: annotation
+    resource: Stakeholders\ApiBundle\Controller\RegisterController
+    prefix: /oauth/v2
     options:
         expose: true

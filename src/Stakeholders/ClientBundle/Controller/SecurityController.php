@@ -28,12 +28,6 @@ class SecurityController extends Controller
 				));
 				if ($res->getStatusCode() === 200) {
 					$result = json_decode($res->getBody()->getContents());
-					/*$session = $request->getSession();
-					if ($session->has('_security.target_path')) {
-						if (false !== strpos($session->get('_security.target_path'), $this->generateUrl('fos_oauth_server_authorize'))) {
-							$session->set('_fos_oauth_server.ensure_logout', true);
-						}
-					}*/
 					return new JsonResponse($result);
 				}
 			} catch(\Exception $e) {
@@ -41,6 +35,56 @@ class SecurityController extends Controller
 			}
 		}
 		return $this->render('StakeholdersClientBundle:Security:login.html.twig');
+	}
+	
+	/**
+	 * @Route("/social-auth/{network}", name="sh_block_social_auth", options={"expose"=true})
+	 */
+	public function socialAuthAction(Request $request, $network)
+	{
+		$client = new Client(array('base_uri' => $this->getParameter('api_url')));
+		try {
+			//if ($network == 'fb') {
+				$res = $client->post($this->generateUrl('sh_social_login'), array(
+					'form_params' => array(
+						'username' => $request->request->get('id'),
+						'profile_image' => $request->request->get('id'),
+						'email' => $request->request->get('email'),
+						'first_name' => $request->request->get('first_name'),
+						'last_name' => $request->request->get('last_name'),
+						'role' => $request->request->get('role'),
+						'network' => $network,
+					)
+				));
+			//}
+			if ($res->getStatusCode() === 200) {
+				$result = json_decode($res->getBody()->getContents());
+				try {
+					$client2 = new Client(array('base_uri' => $this->getParameter('api_url')));
+					$res2 = $client2->post($this->generateUrl('fos_oauth_server_token'), array(
+						'json' => array(
+							'grant_type' => 'password',
+							'client_id' => $this->getParameter('api_client_id'),
+							'client_secret' => $this->getParameter('api_client_secret'),
+							'username' => $result->username,
+							'password' => $result->password,
+						),
+					));
+					if ($res2->getStatusCode() === 200) {
+						$result2 = json_decode($res2->getBody()->getContents());
+						$data = array('userData' => $result, 'tokens' => $result2);
+						return new JsonResponse($data);
+					}
+				} catch(\Exception $e) {
+					return new JsonResponse(array('error' => $e->getMessage()));
+				}
+			} else {
+				return new JsonResponse(array('error' => $res->getStatusCode()));
+			}
+		} catch(\Exception $e) {
+			return new JsonResponse(array('error' => $e->getMessage()));
+		}
+		return new JsonResponse(array('error' => 'Network '.$network.' is not supported...'));
 	}
 	
 	/**

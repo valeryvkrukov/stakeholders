@@ -1,4 +1,4 @@
-<div class="login-wrapper">
+<div class="login-wrapper" ng-controller="SecurityCtrl">
 	<div class="bg-pic">
 		<img src="{{ asset('assets/img/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg') }}" data-src="{{ asset('assets/img/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg') }}" ui-jq="unveil" data-src-retina="{{ asset('assets/img/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg') }}" alt="" class="lazy">
 		<div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
@@ -8,9 +8,10 @@
 	</div>
 	<div class="login-container bg-white">
 		<div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
-			<img src="{{ asset('assets/img/logo.png') }}" alt="logo" data-src="{{ asset('assets/img/logo.png') }}" ui-jq="unveil" data-src-retina="{{ asset('assets/img/logo_2x.png') }}" width="78" height="22">
-			<p class="p-t-35">Sign into your Stakeholders account</p>
-			<form id="form-login" name="login" class="p-t-15" role="form" novalidate ng-submit="signIn()" ng-controller="SecurityCtrl">
+			<img src="{{ asset('assets/img/logo.png') }}" alt="logo" data-src="{{ asset('assets/img/logo.png') }}" ui-jq="unveil" data-src-retina="{{ asset('assets/img/logo_2x.png') }}" height="45">
+			<p class="p-t-35">Sign into your Influence account</p>
+			<p class="alert alert-danger" ng-show="login_error == true">Login or password incorrect</p>
+			<form id="form-login" name="login" class="p-t-15" role="form" novalidate ng-submit="signIn()">
 				<div pg-form-group class="form-group form-group-default" ng-class="{ 'has-error' : user.username.$invalid && !user.username.$pristine }">
 					<label>Login</label>
 					<div class="controls">
@@ -31,18 +32,22 @@
                     </div>
                 </div>
                 <button class="btn btn-primary btn-cons m-t-10" type="submit" ng-disabled="login.$invalid">Sign in</button>
-                <a ui-sref="access.register" class="btn btn-primary btn-cons m-t-10">Sign up</a>
 			</form>
-		</div>
-		<div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
-			<button class="btn btn-block btn-info" type="button">
-				<span class="pull-left"><i class="fa fa-facebook"></i></span>
-				<span class="bold">Login with Facebook</span>
+			<p class="p-t-35">Sign Up</p>
+			<a ui-sref="access.register({'type': 'customer'})" class="btn btn-block btn-info">
+				<span class="bold">As Client</span>
+			</a>
+			<a ui-sref="access.register({'type': 'influencer'})" class="btn btn-block btn-danger">
+				<span class="bold">As Influencer</span>
+			</a>
+			<!-- button class="btn btn-block btn-complete" type="button" ng-click="signInWithSocial('twitter')">
+				<span class="pull-left"><i class="fa fa-twitter"></i></span>
+				<span class="bold">Login with Twitter</span>
 			</button>
-			<button class="btn btn-block btn-danger" type="button">
-				<span class="pull-left"><i class="fa fa-google-plus"></i></span>
-				<span class="bold">Login with Google+</span>
-			</button>
+			<button class="btn btn-block btn-primary" type="button" ng-click="signInWithSocial('instagram')">
+				<span class="pull-left"><i class="fa fa-instagram"></i></span>
+				<span class="bold">Login with Instagram</span>
+			</button-->
 		</div>
 	</div>
 </div>

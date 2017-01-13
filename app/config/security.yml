@@ -23,24 +23,44 @@ security:
         oauth_token:
             pattern: ^/oauth/v2/token
             security: false
-            
-        #oauth_authorize:
-            #pattern: ^/oauth/v2/auth
-            #form_login:
-            #    provider: fos_userbundle
-            #    check_path: /oauth/v2/auth #/oauth/v2/auth_login_check
-            #    login_path: /oauth/v2/auth #login
-            #guard:
-            #   authenticators:
-            #       - stakeholders_client.oauth_authenticator
-            #anonymous: true
-            
+
         api:
             pattern: ^/v1
             fos_oauth: true
             stateless: true
             anonymous: false
+            
+        api_register:
+            pattern: ^/v1/user/register
+            anonymous: true
+            security: false
+            
+        api_social_auth:
+            pattern: ^/v1/social-login
+            anonymous: true
+            security: false
+            
+        api_oauth:
+            pattern: ^/access/oauth/fb
+            anonymous: true
+            security: false
 
+        social_auth:
+            pattern: ^/access
+            anonymous: true
+            oauth:
+                provider: fos_userbundle
+                login_path: /access/connect
+                check_path: /access/connect
+                resource_owners: 
+                    facebook: /access/login/check-facebook
+                login_path: /login
+                use_forward: false
+                success_handler: stakeholders_api.social_auth_security
+                
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider #hwi_oauth.user.provider.entity
+            
         client:
             pattern: ^/app
             anonymous: false
@@ -54,7 +74,10 @@ security:
             
     access_control:
         - { path: ^/v1, roles: [IS_AUTHENTICATED_FULLY] }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/oauth/v2/auth$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/social-auth, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/access, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
        

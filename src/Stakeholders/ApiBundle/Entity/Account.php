@@ -20,16 +20,15 @@ class Account
 	protected $id;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Stakeholders\ApiBundle\Entity\User")
-	 * @ORM\JoinColumn(name="influencer_id", referencedColumnName="id", nullable=true)
+	 * @ORM\OneToOne(targetEntity="Stakeholders\ApiBundle\Entity\User", inversedBy="account")
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 	 */
-	protected $influencer;
+	protected $user;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Stakeholders\ApiBundle\Entity\User")
-	 * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true)
+	 * @ORM\OneToMany(targetEntity="Stakeholders\ApiBundle\Entity\Field", mappedBy="account")
 	 */
-	protected $customer;
+	protected $fields;
 	
 	/**
 	 * @ORM\Column(name="api_provider", type="string", nullable=false)
@@ -37,7 +36,7 @@ class Account
 	protected $apiProvider;
 	
 	/**
-	 * @ORM\Column(name="api_key", type="string", nullable=false)
+	 * @ORM\Column(name="api_key", type="string", nullable=true)
 	 */
 	protected $apiKey;
 	
@@ -51,6 +50,11 @@ class Account
 	 */
 	protected $createdAt;
 	
+	public function __construct()
+	{
+		$this->fields = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+	
 	/**
 	 * Get id
 	 * 
@@ -61,44 +65,56 @@ class Account
 	}
 	
 	/**
-	 * Get influencer
+	 * Get user
 	 * 
 	 * @return Stakeholders\ApiBundle\Entity\User
 	 */
-	public function getInfluencer() {
-		return $this->influencer;
+	public function getUser() {
+		return $this->user;
 	}
 	
 	/**
-	 * Set influencer
+	 * Set user
 	 * 
-	 * @param Stakeholders\ApiBundle\Entity\User $influencer
+	 * @param Stakeholders\ApiBundle\Entity\User $user
 	 * @return Stakeholders\ApiBundle\Entity\Account
 	 */
-	public function setInfluencer($influencer) {
-		$this->influencer = $influencer;
+	public function setUser($user) {
+		$this->user = $user;
 		
 		return $this;
 	}
 	
 	/**
-	 * Get customer
+	 * Get fields
 	 * 
-	 * @return Stakeholders\ApiBundle\Entity\User
+	 * @return Stakeholders\ApiBundle\Entity\Field
 	 */
-	public function getCustomer() {
-		return $this->customer;
+	public function getFields() {
+		return $this->fields;
 	}
 	
 	/**
-	 * Set customer
+	 * Add field
 	 * 
-	 * @param Stakeholders\ApiBundle\Entity\User $customer
+	 * @param Stakeholders\ApiBundle\Entity\Field $field
 	 * @return Stakeholders\ApiBundle\Entity\Account
 	 */
-	public function setCustomer($customer) {
-		$this->customer = $customer;
+	public function addField($field) {
+		$this->fields->add($field);
 		
+		return $this;
+	}
+	
+	/**
+	 * Remove field
+	 *
+	 * @param Stakeholders\ApiBundle\Entity\Field $field
+	 * @return Stakeholders\ApiBundle\Entity\Account
+	 */
+	public function removeField($field) {
+		$this->fields->removeElement($field);
+	
 		return $this;
 	}
 	
